@@ -1,32 +1,6 @@
 describe("App", () => {
   beforeEach(() => {
-    cy.intercept("GET", "http://localhost:3001/api/v1/orders", {
-      orders: [
-        {
-          id: 1,
-          name: "Pat",
-          ingredients: [
-            "beans",
-            "lettuce",
-            "carnitas",
-            "queso fresco",
-            "jalapeno",
-          ],
-        },
-        {
-          id: 2,
-          name: "Sam",
-          ingredients: [
-            "steak",
-            "pico de gallo",
-            "lettuce",
-            "carnitas",
-            "queso fresco",
-            "jalapeno",
-          ],
-        },
-      ],
-    }).as("orders");
+    cy.intercept("GET", "http://localhost:3001/api/v1/orders", {fixture: "/sampleOrders.json"}).as("orders");
 
     cy.visit("http://localhost:3000");
   });
@@ -45,7 +19,7 @@ describe("App", () => {
     cy.get("form").should("contain", "Submit Order");
     cy.get("form").should("contain", "lettuce");
     cy.get("form").should("contain", "Nothing selected");
-    cy.get("button").should("have.length", 25);
+    cy.get("button").should("have.length", 13);
   });
 
   it("should render previous orders", () => {
@@ -78,7 +52,7 @@ describe("App", () => {
   });
 
 
-  it.only("should be able to place an order", () => {
+  it("should be able to place an order", () => {
     cy.intercept("POST", "http://localhost:3001/api/v1/orders").as("order");
     cy.visit("http://localhost:3000");
     cy.get('input[type="text"]').type("Josh");
