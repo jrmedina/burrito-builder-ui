@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { getOrders } from "../../apiCalls";
 
 
-
-
-const OrderForm = ({setOrders}) => {
+const OrderForm = ({ updateOrders }) => {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState("");
@@ -13,7 +10,7 @@ const OrderForm = ({setOrders}) => {
     let missingInput = !name ? "name" : "ingredient";
     e.preventDefault();
     name && ingredients.length
-      ? postIt()
+      ?  postIt() && updateOrders({ name: name, ingredients: ingredients, id:Date.now()}) 
       : setError(`Looks like you are missing a ${missingInput}`);
     clearInputs();
   };
@@ -23,9 +20,7 @@ const OrderForm = ({setOrders}) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name, ingredients: ingredients }),
-    })
-      .then((res) => res.json())
-      .then(getOrders().then((data) => setOrders(data.orders)));
+    }).then((res) => res.json());
   };
 
   const clearInputs = () => {
@@ -76,7 +71,6 @@ const OrderForm = ({setOrders}) => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 

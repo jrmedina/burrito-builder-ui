@@ -64,5 +64,9 @@ describe("App", () => {
       expect(response.body.name).to.eq("Josh");
       expect(response.body.ingredients).to.deep.eq(["beans"]);
     });
+    cy.get("h3").last().should("contain", "Josh");
+cy.get(".order").last().should("contain", "beans")
+
+
   });
 });
