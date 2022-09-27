@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 const OrderForm = ({ updateOrders }) => {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
@@ -10,7 +9,8 @@ const OrderForm = ({ updateOrders }) => {
     let missingInput = !name ? "name" : "ingredient";
     e.preventDefault();
     name && ingredients.length
-      ?  postIt() && updateOrders({ name: name, ingredients: ingredients, id:Date.now()}) 
+      ? postIt() &&
+        updateOrders({ name: name, ingredients: ingredients, id: Date.now() })
       : setError(`Looks like you are missing a ${missingInput}`);
     clearInputs();
   };

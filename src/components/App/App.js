@@ -12,8 +12,8 @@ const App = () => {
   }, []);
 
   const updateOrders = (newOrder) => {
-setOrders([...orders, newOrder]);
-  }
+    setOrders([...orders, newOrder]);
+  };
 
   return (
     <div>

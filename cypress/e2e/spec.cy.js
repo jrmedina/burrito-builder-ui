@@ -1,6 +1,8 @@
 describe("App", () => {
   beforeEach(() => {
-    cy.intercept("GET", "http://localhost:3001/api/v1/orders", {fixture: "/sampleOrders.json"}).as("orders");
+    cy.intercept("GET", "http://localhost:3001/api/v1/orders", {
+      fixture: "/sampleOrders.json",
+    }).as("orders");
 
     cy.visit("http://localhost:3000");
   });
@@ -51,7 +53,6 @@ describe("App", () => {
     cy.get(".order").should("have.length", 2);
   });
 
-
   it("should be able to place an order", () => {
     cy.intercept("POST", "http://localhost:3001/api/v1/orders").as("order");
     cy.visit("http://localhost:3000");
@@ -65,8 +66,6 @@ describe("App", () => {
       expect(response.body.ingredients).to.deep.eq(["beans"]);
     });
     cy.get("h3").last().should("contain", "Josh");
-cy.get(".order").last().should("contain", "beans")
-
-
+    cy.get(".order").last().should("contain", "beans");
   });
 });

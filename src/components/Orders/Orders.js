@@ -16,7 +16,9 @@ const Orders = (props) => {
   });
 
   return (
-    <section className="previous-orders">{orderEls.length ? orderEls : <p>No orders yet!</p>}</section>
+    <section className="previous-orders">
+      {orderEls.length ? orderEls : <p>No orders yet!</p>}
+    </section>
   );
 };
 
